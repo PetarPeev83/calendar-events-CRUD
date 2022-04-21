@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календар Детски Център</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="header">
+            <div class="small"><img src="/assets/makkuin.png"></div>
+            <div id="monthDisplay"></div>
+
+            <div>
+                <button id="backButton">Предишен Mесец</button>
+                <button id="nextButton">Следващ Месец</button>
+            </div>
+        </div>
+
+        <div id="weekdays">
+            <div>Понеделник</div>
+            <div>Вторник</div>
+            <div>Сряда</div>
+            <div>Четвъртък</div>
+            <div>Петък</div>
+            <div>Събота</div>
+            <div>Неделя</div>
+        </div>
+
+        <div id="calendar"></div>
+    </div>
+
+    <div id="newEventModal">
+        <div class="small"><img src="/assets/makkuin.png"></div>
+        <h2>Нова Резервация</h2>
+
+        <br>
+        <h3>Детски Център</h3>
+        <hr class="rounded">
+        <label for="times">Избери час:</label>
+        <select id="time">
+            <option value="10:00">10:00</option>
+            <option value="10:30">10:30</option>
+            <option value="11:00">11:00</option>
+            <option value="11:30">11:30</option>
+            <option value="12:00">12:00</option>
+            <option value="12:30">12:30</option>
+            <option value="13:00">13:00</option>
+            <option value="13:30">13:30</option>
+            <option value="14:00">14:00</option>
+            <option value="14:30">14:30</option>
+            <option value="15:00">15:00</option>
+            <option value="15:30">16:30</option>
+            <option value="16:00">16:00</option>
+            <option value="16:30">16:30</option>
+            <option value="17:00">17:00</option>
+            <option value="17:30">17:30</option>
+            <option value="18:00">18:00</option>
+            <option value="18:30">18:30</option>
+        </select>
+        <br>
+        <br>
+        <label>Име: <input type="name" id="names" placeholder="Име" /> </label>&nbsp;&nbsp;&nbsp;
+        <label>Години: <input type="number" id="age" placeholder="Години" /> </label>
+        <br><br>
+        <label>Телефон: <input type="number" id="phone" placeholder="089......." /> </label>
+        <br><br>
+        <label>Капаро: <input type="number" id="kaparo" placeholder="50лв." /> </label>&nbsp;&nbsp;&nbsp;
+        <label>Капаро №: <input type="number" id="kaparoNumber" placeholder="0-100" /> </label>
+        <hr class="rounded">
+        <br>
+        <label for="parties">Избери Парти:</label>
+        <select id="parti">
+            <option value="Стандартен Р.Д">Стандартен Р.Д</option>
+            <option value="Рожден Ден с Аниматор">Рожден Ден с Аниматор </option>
+            <option value="Парти ДЯДО ВАДИ РЯПА">Парти ДЯДО ВАДИ РЯПА</option>
+            <option value="Парти МАША И МЕЧОКА">Парти МАША И МЕЧОКА</option>
+            <option value="Парти КУКЛЕН ТЕАТАР">Парти КУКЛЕН ТЕАТАР</option>
+            <option value="Парти КАРНАВАЛ">Парти КАРНАВАЛ</option>
+            <option value="Парти МИНЬОНИ"> Парти МИНЬОНИ</option>
+            <option value="Парти ПИЖАМЕНО">Парти ПИЖАМЕНО</option>
+            <option value="Парти СТРАШНО">Парти СТРАШНО</option>
+            <option value="Парти УЙНКС">Парти УЙНКС</option>
+            <option value="Парти ЗАМРЪЗНАЛО КРАЛСТВО">Парти ЗАМРЪЗНАЛО КРАЛСТВО</option>
+            <option value="Парти КАЛИНКАТА И ЧЕРНИЯ КОТАРАК">Парти КАЛИНКАТА И ЧЕРНИЯ КОТАРАК</option>
+            <option value="Парти РАПУНЦЕЛ">Парти РАПУНЦЕЛ</option>
+            <option value="Парти БАТМАН">Парти БАТМАН</option>
+            <option value="Парти МИКИ И МИНИ МАУС">Парти МИКИ И МИНИ МАУС</option>
+            <option value="Парти КРЪСТОСЛОВИЦА">Парти КРЪСТОСЛОВИЦА</option>
+            <option value="Парти КОСТЕНУРКИТЕ НИНДЖА">Парти КОСТЕНУРКИТЕ НИНДЖА</option>
+            <option value="Парти ЕНГРИ БЪРДС">Парти ЕНГРИ БЪРДС</option>
+            <option value="Парти ФУТБОЛНО">Парти ФУТБОЛНО</option>
+            <option value="Парти ДИСКОТЕКА">Парти ДИСКОТЕКА</option>
+            <option value="Парти ПИРАТСКО">Парти ПИРАТСКО</option>
+            <option value="Парти НИНДЖАГО">Парти НИНДЖАГО</option>
+            <option value="Парти СПАЙДЪРМЕН">Парти СПАЙДЪРМЕН</option>
+            <option value="Парти СЪРВАЙВЪР">Парти СЪРВАЙВЪР</option>
+            <option value="Парти ПИНЯТА">Парти ПИНЯТА</option>
+            <option value="Парти ПИ ДЖЕЙ МАСК">Парти ПИ ДЖЕЙ МАСК</option>
+            <option value="Парти ИСКРИЦА И СИЯЙНИЦА">Парти ИСКРИЦА И СИЯЙНИЦА</option>
+            <option value="Парти КОЛИТЕ"> Парти КОЛИТЕ</option>
+            <option value="Парти ПЕС ПАТРУЛ">Парти ПЕС ПАТРУЛ</option>
+            <option value="Парти ПЕПА ПИГ">Парти ПЕПА ПИГ</option>
+            <input type="text" id="animator" placeholder="аниматор" />
+        </select>
+        <br>
+        <br>
+        <hr class="rounded">
+        <label for="cakes">Избери Сладкарница:</label>
+        <select id="cake">
+            <option value="Внасяне">Внасяне</option>
+            <option value="Чочко">Чочко</option>
+            <option value="Колекция">Колекция</option>
+            <option value="Попимони">Попимони</option>
+            <option value="Шарлот">Шарлот</option>
+        </select>
+        <br><br>
+        <label for="pices">Брой Парчета:</label>
+        <select id="pices">
+            <option value="6">6</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">14</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="20-24">20-24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="28">28</option>
+            <option value="30">30</option>
+            <option value="32">32</option>
+            <option value="34">34</option>
+            <option value="36">36</option>
+            <option value="36">38</option>
+            <option value="40">40</option>
+        </select>
+        <br>
+        <br>
+        <label>Код на тортата: <input type="text" id="cakeCode" placeholder="" /> </label>
+        <br>
+        <br>
+        <label>Пълнеж: <input type="text" id="cakeTaste" /> </label>
+        <br>
+        <br>
+        <label>ЧРД Надпис: <input type="text" id="HBDName" /> </label>
+        <br><br> Описание на тортата:
+        <textarea placeholder="..." name="cakeDescription" id="cakeDescription" cols="73" rows="1"></textarea>
+        <br>
+        <br>
+        <label>Цена: <input type="number" id="prise" /> </label>лв. &nbsp;&nbsp;&nbsp;
+        <label for="Тортата е поръчана:">Тортата е поръчана:</label>
+        <input type="checkbox" id="order" name="order">
+        <hr class="rounded">
+        <label>Брой Деца: <input type="number" id="kidsNumber" /> </label>
+        <br>
+        <br>
+        <label for="kidsMenu">Детско Меню:</label>
+        <select id="kidsMenu">
+            <option value="" selected></option>
+            <option value="Запечен Сандвич">Запечен Сандвич</option>
+            <option value="Тост Сандвич">Тост Сандвич</option>
+            <option value="Клуб Сандвич">Клуб Сандвич</option>
+            <option value="Пица">Пица</option>
+            <option value="Солена Палачинка">Солена Палачинка</option>
+            <option value="Бургер с франзела">Бургер с франзела</option>
+            <option value="Бургер с Питка">Бургер с Питка</option>
+            <option value="Пилешки Хапки">Пилешки Хапки</option>
+        </select>
+        <br>
+        <br>
+
+        <table id="cetaring">
+            <label for="kidsMenu">Кетаринг за Децата:</label>
+        </table>
+
+        <button type="button" id="btnMenu" onclick="myFunction()">Добави...</button>
+
+        <br>
+        <script>
+            function removeSection(element) {
+                element.parentElement.replaceChildren();
+            };
+            function myFunction() {
+                let newMenu = document.createElement("kidsMenu");
+                newMenu.innerHTML = `<select class="kidsMenu">
+                    <option value="" selected></option>
+                    <option value="Запечен Сандвич">Запечен Сандвич</option>
+                    <option value="Тост Сандвич">Тост Сандвич</option>
+                    <option value="Клуб Сандвич">Клуб Сандвич</option>
+                    <option value="Пица">Пица</option>
+                    <option value="Солена Палачинка">Солена Палачинка</option>
+                    <option value="Бургер с франзела">Бургер с франзела</option>
+                    <option value="Бургер с Питка">Бургер с Питка</option>
+                    <option value="Пилешки Хапки">Пилешки Хапки</option>
+                    <input type="number" id="quantity" placeholder=""/> 
+                    <input type="text" id="descript" placeholder=""/>
+                    </select>`
+                let button = document.createElement('button');
+                button.id = 'deleteBtn';
+                button.textContent = 'Изтрий';
+                button.addEventListener('click', removeSection)
+                let table = document.querySelector('#cetaring');
+                newMenu.appendChild(button);
+                table.appendChild(newMenu);
+
+                function removeSection(e) {
+                    console.log(e.target.parentElement);
+                    e.target.parentElement.remove();
+                };
+            };
+        </script>
+
+        <br>
+        <hr class="rounded">
+        <br>
+        <textarea placeholder="Друго..." name="other" id="other" cols="73" rows="3"></textarea>
+        <br>
+        <br>
+        <hr class="rounded">
+
+
+        <button id="saveButton">Запази</button>
+        <button id="editButton">ОК</button>
+        <button id="cancelButton">Откажи</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button id="deleteButton">Изтрий</button>
+    </div>
+
+    <div id="deleteEventModal">
+
+        <div class="small"><img src="/assets/reservations.jpg"></div>
+
+        <h2>Резервация на:
+            <text id="име"></text>
+            <text style="color: #d36c6c;"><text id="години"></text> г.
+        </h2>
+
+        <h3>&nbsp;&nbsp; Час: <b><text id="час"></text>ч.</b></h3>
+
+        <hr class="rounded"> Телефон: <b><text id="телефон"></text></b>&nbsp;&nbsp;&nbsp; Капаро: <b><text
+                id="капаро"></text>лв.</b>&nbsp;&nbsp;&nbsp; Капаро №:<b><text id="капароНомер"></text></b>
+        <hr class="rounded"> Парти: <b><text id="парти"></text></b>&nbsp;&nbsp;&nbsp; Аниматор: <b><text
+                id="аниматор"></text></b>
+        <hr class="rounded"> Сладкарница: <b><text id="торта"></text></b>
+        <br> Брой Парчета: <b><text id="парчета"></text></b>
+        <br> Код на тортата: <b><text id="тортаКод"></text></b>
+        <br> Пълнеж: <b><text id="тортаПълнеж"></text></b>
+        <br> ЧРД Надпис: <b><text id="ЧРДИме"></text></b>
+        <br> Вид на тортата:<b><text id="тортаОписание"></text></b>
+        <br> Цена: <b><text id="цена"></text></b>
+        <br> Отметка за поръчана торта:<b><text id="поръчана"></text></b>
+        <hr class="rounded"> Брой Деца: <b><text id="бройДеца"></text></b>
+        <br><br> Детско Меню: <b><text id="детскоМеню"></text></b>
+        <br><br> Кетаринг за Децата: <b>
+            <div id="кетарингДеца"></div>
+
+
+
+
+            <hr class="rounded">
+            <br> Друго: <b><text id="друго"></text></b>
+            <br>
+            <br>
+            <hr class="rounded">
+
+            <button id="editBtn">Редактирай</button>
+            <button id="closeButton">Откажи</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="deleteBtn">Изтрий</button>
+    </div>
+
+    <div id="modalBackDrop"></div>
+
+    <script src="./src/script.js" type="module"></script>
+</body>
+
+</html>
