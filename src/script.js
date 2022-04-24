@@ -30,9 +30,21 @@ let kidsCatering = document.getElementById('cetaring');
 
 const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',];
 
-function openModal(event, date) {
+function openModal(event, date, reservationsArr) {
     clicked = date;
     calendar.style.display = 'none';
+
+    if (reservationsArr.length > 0) {
+        let index = 0;
+        for (let current of [...time.children]) {
+            index++;
+            if (reservationsArr.includes(current.textContent)) {
+                for (let i = index-1; i < index + 4; i++) {
+                    [...time.children][i].style.display = 'none';
+                };
+            };
+        };
+    };
 
     if (event.target.className == 'event') {
 
@@ -226,9 +238,8 @@ function openModal(event, date) {
             };
         };
     } else {
-        // console.log(event.target.children);
+
         if (event.target.children.length == 4) {
-            // location.reload();
             return notify('Достигнат е максималния брой резервации за деня !!!');
         };
 
@@ -273,6 +284,7 @@ function load() {
         daySquare.classList.add('day');
 
         const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+        let reservationsOnTheDay = [];
 
         if (i > paddingDays) {
             daySquare.innerText = i - paddingDays;
@@ -291,10 +303,11 @@ function load() {
                         eventDiv.classList.add('event');
                         eventDiv.innerText = ev.time + "ч." + " " + ev.name + " " + ev.age + "г.";
                         daySquare.appendChild(eventDiv);
+                        reservationsOnTheDay.push(ev.time);
                     });
                 };
             };
-            daySquare.addEventListener('click', (event) => openModal(event, dayString));
+            daySquare.addEventListener('click', (event) => openModal(event, dayString, reservationsOnTheDay));
         } else {
             daySquare.classList.add('padding');
         };
