@@ -37,19 +37,24 @@ function openModal(event, date, reservationsArr) {
     if (reservationsArr.length > 0) {
         let index = 0;
         for (let current of [...time.children]) {
-            index++;
+
             if (reservationsArr.includes(current.textContent)) {
-                let endIndex = index + 4;
+                current.style.display = "none";
+                let endIndex = index + 5;
+                let startIndex = index - 4;
+
+                if (startIndex < 0) {
+                    startIndex = 0;
+                };
                 if (endIndex > [...time.children].length - 1) {
                     endIndex = [...time.children].length - 1;
                 };
-                for (let i = index - 1; i < endIndex; i++) {
-                    if (i == [...time.children].length - 1) {
-                        return;
-                    };
+
+                for (let i = startIndex; i < endIndex; i++) {
                     [...time.children][i].style.display = 'none';
                 };
             };
+            index++;
         };
     };
 
@@ -57,11 +62,6 @@ function openModal(event, date, reservationsArr) {
 
         newEventModal.style.display = 'none';
         deleteEventModal.style.display = 'block';
-
-       
-
-        //  10:00ч. egwawg 5г.
-        // console.log(event.target.textContent);
 
         let [reservationTime, name, years] = event.target.textContent.split(' ');
         years = years.slice(0, -2);
@@ -100,155 +100,9 @@ function openModal(event, date, reservationsArr) {
             document.getElementById('поръчана').textContent = 'НЕ';
         };
 
-        document.getElementById('deleteBtn').addEventListener('click', deleteReservation)
-        document.getElementById('editBtn').addEventListener('click', () => {
+        document.getElementById('deleteBtn').addEventListener('click', () => deleteReservation(currentEvent))
+        document.getElementById('editBtn').addEventListener('click', () => onEdit(currentEvent))
 
-            newEventModal.style.display = 'block';
-            deleteEventModal.style.display = 'none';
-
-            time.value = currentEvent.time;
-            names.value = currentEvent.name;
-            phone.value = currentEvent.phone;
-            kaparo.value = currentEvent.kaparo;
-            kaparoNumber.value = currentEvent.kaparoNumber;
-            age.value = currentEvent.age;
-            parti.value = currentEvent.party;
-            animator.value = currentEvent.animator;
-            cake.value = currentEvent.cake;
-            pices.value = currentEvent.pices;
-            price.value = currentEvent.cakePrice;
-            cakeCode.value = currentEvent.cakeCode;
-            cakeTaste.value = currentEvent.cakeFilling;
-            cakeDescription.value = currentEvent.cakeDescription;
-            order.checked = currentEvent.cakeOrder;
-            HBDName.value = currentEvent.cakeLabel;
-            kidsMenu.value = currentEvent.kidsMenu;
-            kidsNumber.value = currentEvent.kidsNumber;
-
-            if (currentEvent.kidsCatering.length > 0) {
-                currentEvent.kidsCatering.forEach((e) => {
-                    let newMenu = document.createElement("kidsMenu");
-                    newMenu.innerHTML = `<select class="kidsMenu">
-                        <option value="${e[0]}" selected>${e[0]}</option>
-                        <option value="Запечен Сандвич">Запечен Сандвич</option>
-                        <option value="Тост Сандвич">Тост Сандвич</option>
-                        <option value="Клуб Сандвич">Клуб Сандвич</option>
-                        <option value="Пица">Пица</option>
-                        <option value="Солена Палачинка">Солена Палачинка</option>
-                        <option value="Бургер с франзела">Бургер с франзела</option>
-                        <option value="Бургер с Питка">Бургер с Питка</option>
-                        <option value="Пилешки Хапки">Пилешки Хапки</option>
-                        <input type="number" id="quantity" placeholder="" value=${e[1]}> 
-                        <input type="text" id="descript" placeholder="" value="${e[2]}">
-                        </select>`;
-                    let button = document.createElement('button');
-                    button.id = 'deleteBtn';
-                    button.textContent = 'Изтрий';
-                    button.addEventListener('click', removeSection)
-                    let table = document.querySelector('#cetaring');
-                    newMenu.appendChild(button);
-                    table.appendChild(newMenu);
-                });
-                function removeSection(e) {
-                    console.log(e.target.parentElement);
-                    e.target.parentElement.remove();
-                };
-            };
-
-            other.value = currentEvent.other;
-
-            document.getElementById('saveButton').style.display = 'none';
-            document.getElementById('deleteButton').style.display = 'inline-block';
-            document.querySelector('#newEventModal h2').textContent = 'Редакция на резервация';
-            const editBtn = document.getElementById('editButton');
-            editBtn.style.display = 'inline-block';
-            editBtn.addEventListener('click', editReservation);
-            deleteButton.addEventListener('click', deleteReservation);
-
-
-            async function editReservation() {
-                if (!time.value || !names.value || !phone.value || !age.value) {
-                    return alert('Не са попълнени всички задължителни полета!');
-                };
-                let currentKidsCatering = document.getElementById('cetaring');
-                let cateringToPush = [];
-                Array.from(currentKidsCatering.children).map(e => cateringToPush.push([e.children[0].value, e.children[1].value, e.children[2].value]));
-
-                await put("/classes/Playground/" + currentEvent.objectId, {
-                    "date": clicked.trim(),
-                    "name": names.value.trim(),
-                    "age": Number(age.value.trim()),
-                    "phone": phone.value.trim(),
-                    "kaparo": Number(kaparo.value.trim()),
-                    "kaparoNumber": Number(kaparoNumber.value.trim()),
-                    "time": time.value.trim(),
-                    "party": parti.value.trim(),
-                    "animator": animator.value.trim(),
-                    "cake": cake.value.trim(),
-                    "pices": pices.value.trim(),
-                    "cakeCode": cakeCode.value.trim(),
-                    "cakeFilling": cakeTaste.value.trim(),
-                    "cakeLabel": HBDName.value.trim(),
-                    "cakeDescription": cakeDescription.value.trim(),
-                    "cakePrice": Number(price.value.trim()),
-                    "cakeOrder": order.checked,
-                    "kidsNumber": Number(kidsNumber.value.trim()),
-                    "kidsMenu": kidsMenu.value.trim(),
-                    "kidsCatering": cateringToPush,
-                    "other": other.value.trim(),
-                });
-
-                phone.value = '';
-                names.value = '';
-                time.value = '';
-                kaparo.value = '';
-                age.value = '';
-                other.value = '';
-                parti.value = '';
-                cake.value = '';
-                cakeCode.value = '';
-                cakeDescription.value = '';
-                cakeTaste.value = '';
-                price.value = '';
-                pices.value = '';
-                order.checked = false;
-                HBDName.value = '';
-                kidsMenu.value = '';
-                kidsNumber.value = '';
-
-                calendar.style.display = '';
-                location.reload();
-            };
-        });
-
-        async function deleteReservation() {
-
-            if (confirm('Сигурен ли си че искаш да изстриеш планираното събитие?')) {
-
-                await del("/classes/Playground/" + currentEvent.objectId);
-
-                phone.value = '';
-                names.value = '';
-                time.value = '';
-                kaparo.value = '';
-                age.value = '';
-                parti.value = '';
-                cake.value = '';
-                cakeCode.value = '';
-                cakeDescription.value = '';
-                cakeTaste.value = '';
-                price.value = '';
-                pices.value = '';
-                order.checked = false;
-                other.value = '';
-                HBDName.value = '';
-                kidsMenu.value = '';
-                kidsNumber.value = '';
-
-                calendar.style.display = '';
-                location.reload();
-            };
-        };
     } else {
 
         if (event.target.children.length == 4) {
@@ -261,6 +115,172 @@ function openModal(event, date, reservationsArr) {
         document.getElementById('editButton').style.display = 'none';
         document.getElementById('saveButton').style.display = 'inline-block';
         document.getElementById('deleteButton').style.display = 'none';
+    };
+};
+
+function onEdit(currentEvent) {
+
+    let editIndex = 0;
+    for (let current of [...time.children]) {
+
+        if (currentEvent.time == current.textContent) {
+            current.style.display = "block";
+            let endEditIndex = editIndex + 5;
+            let startEditIndex = editIndex - 4;
+
+            if (startEditIndex < 0) {
+                startEditIndex = 0;
+            };
+            if (endEditIndex > [...time.children].length - 1) {
+                endEditIndex = [...time.children].length - 1;
+            };
+
+            for (let j = startEditIndex; j < endEditIndex; j++) {
+                [...time.children][j].style.display = 'block';
+            };
+        };
+        editIndex++;
+    };
+
+    newEventModal.style.display = 'block';
+    deleteEventModal.style.display = 'none';
+
+    time.value = currentEvent.time;
+    names.value = currentEvent.name;
+    phone.value = currentEvent.phone;
+    kaparo.value = currentEvent.kaparo;
+    kaparoNumber.value = currentEvent.kaparoNumber;
+    age.value = currentEvent.age;
+    parti.value = currentEvent.party;
+    animator.value = currentEvent.animator;
+    cake.value = currentEvent.cake;
+    pices.value = currentEvent.pices;
+    price.value = currentEvent.cakePrice;
+    cakeCode.value = currentEvent.cakeCode;
+    cakeTaste.value = currentEvent.cakeFilling;
+    cakeDescription.value = currentEvent.cakeDescription;
+    order.checked = currentEvent.cakeOrder;
+    HBDName.value = currentEvent.cakeLabel;
+    kidsMenu.value = currentEvent.kidsMenu;
+    kidsNumber.value = currentEvent.kidsNumber;
+
+    if (currentEvent.kidsCatering.length > 0) {
+        currentEvent.kidsCatering.forEach((e) => {
+            let newMenu = document.createElement("kidsMenu");
+            newMenu.innerHTML = `<select class="kidsMenu">
+                    <option value="${e[0]}" selected>${e[0]}</option>
+                    <option value="Запечен Сандвич">Запечен Сандвич</option>
+                    <option value="Тост Сандвич">Тост Сандвич</option>
+                    <option value="Клуб Сандвич">Клуб Сандвич</option>
+                    <option value="Пица">Пица</option>
+                    <option value="Солена Палачинка">Солена Палачинка</option>
+                    <option value="Бургер с франзела">Бургер с франзела</option>
+                    <option value="Бургер с Питка">Бургер с Питка</option>
+                    <option value="Пилешки Хапки">Пилешки Хапки</option>
+                    <input type="number" id="quantity" placeholder="" value=${e[1]}> 
+                    <input type="text" id="descript" placeholder="" value="${e[2]}">
+                    </select>`;
+            let button = document.createElement('button');
+            button.id = 'deleteBtn';
+            button.textContent = 'Изтрий';
+            button.addEventListener('click', (e) => e.target.parentElement.remove())
+            let table = document.querySelector('#cetaring');
+            newMenu.appendChild(button);
+            table.appendChild(newMenu);
+        });
+    };
+
+    other.value = currentEvent.other;
+
+    document.getElementById('saveButton').style.display = 'none';
+    document.getElementById('deleteButton').style.display = 'inline-block';
+    document.querySelector('#newEventModal h2').textContent = 'Редакция на резервация';
+    const editBtn = document.getElementById('editButton');
+    editBtn.style.display = 'inline-block';
+    editBtn.addEventListener('click', () => editReservation(currentEvent));
+    deleteButton.addEventListener('click', (e) => e.target.parentElement.remove());
+};
+
+async function editReservation(currentEvent) {
+    if (!time.value || !names.value || !phone.value || !age.value) {
+        return alert('Не са попълнени всички задължителни полета!');
+    };
+
+    let currentKidsCatering = document.getElementById('cetaring');
+    let cateringToPush = [];
+    Array.from(currentKidsCatering.children).map(e => cateringToPush.push([e.children[0].value, e.children[1].value, e.children[2].value]));
+
+    await put("/classes/Playground/" + currentEvent.objectId, {
+        "date": clicked.trim(),
+        "name": names.value.trim(),
+        "age": Number(age.value.trim()),
+        "phone": phone.value.trim(),
+        "kaparo": Number(kaparo.value.trim()),
+        "kaparoNumber": Number(kaparoNumber.value.trim()),
+        "time": time.value.trim(),
+        "party": parti.value.trim(),
+        "animator": animator.value.trim(),
+        "cake": cake.value.trim(),
+        "pices": pices.value.trim(),
+        "cakeCode": cakeCode.value.trim(),
+        "cakeFilling": cakeTaste.value.trim(),
+        "cakeLabel": HBDName.value.trim(),
+        "cakeDescription": cakeDescription.value.trim(),
+        "cakePrice": Number(price.value.trim()),
+        "cakeOrder": order.checked,
+        "kidsNumber": Number(kidsNumber.value.trim()),
+        "kidsMenu": kidsMenu.value.trim(),
+        "kidsCatering": cateringToPush,
+        "other": other.value.trim(),
+    });
+
+    phone.value = '';
+    names.value = '';
+    time.value = '';
+    kaparo.value = '';
+    age.value = '';
+    other.value = '';
+    parti.value = '';
+    cake.value = '';
+    cakeCode.value = '';
+    cakeDescription.value = '';
+    cakeTaste.value = '';
+    price.value = '';
+    pices.value = '';
+    order.checked = false;
+    HBDName.value = '';
+    kidsMenu.value = '';
+    kidsNumber.value = '';
+
+    calendar.style.display = '';
+    location.reload();
+};
+
+async function deleteReservation(currentEvent) {
+    if (confirm('Сигурен ли си че искаш да изстриеш планираното събитие?')) {
+
+        await del("/classes/Playground/" + currentEvent.objectId);
+
+        phone.value = '';
+        names.value = '';
+        time.value = '';
+        kaparo.value = '';
+        age.value = '';
+        parti.value = '';
+        cake.value = '';
+        cakeCode.value = '';
+        cakeDescription.value = '';
+        cakeTaste.value = '';
+        price.value = '';
+        pices.value = '';
+        order.checked = false;
+        other.value = '';
+        HBDName.value = '';
+        kidsMenu.value = '';
+        kidsNumber.value = '';
+
+        calendar.style.display = '';
+        location.reload();
     };
 };
 
