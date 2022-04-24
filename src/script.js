@@ -1,4 +1,5 @@
 import { get, post, put, del } from "./api/api.js";
+import { notify } from "./notify.js";
 
 let nav = 0;
 let clicked = null;
@@ -25,7 +26,6 @@ const price = document.getElementById('prise');
 const order = document.getElementById('order');
 const kidsMenu = document.getElementById('kidsMenu');
 const kidsNumber = document.getElementById('kidsNumber');
-// const quantity = document.getElementById('quantity');
 let kidsCatering = document.getElementById('cetaring');
 
 const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',];
@@ -75,7 +75,7 @@ function openModal(event, date) {
         } else {
             document.getElementById('поръчана').textContent = 'НЕ';
         };
-      
+
         document.getElementById('deleteBtn').addEventListener('click', deleteReservation)
         document.getElementById('editBtn').addEventListener('click', () => {
 
@@ -226,6 +226,12 @@ function openModal(event, date) {
             };
         };
     } else {
+        // console.log(event.target.children);
+        if (event.target.children.length == 4) {
+            // location.reload();
+            return notify('Достигнат е максималния брой резервации за деня !!!');
+        };
+
         document.querySelector('#newEventModal h2').textContent = 'Нова Резервация';
         newEventModal.style.display = 'block';
         deleteEventModal.style.display = 'none';
@@ -276,13 +282,14 @@ function load() {
             }
             if (events.results.length > 0) {
 
-                const eventForDay = events.results.filter(e => (e.date == dayString));
+                let eventForDay = events.results.filter(e => (e.date == dayString));
+                eventForDay = eventForDay.sort((a, b) => a.time.localeCompare(b.time));
 
                 if (eventForDay.length > 0) {
                     eventForDay.map(ev => {
                         const eventDiv = document.createElement('div');
                         eventDiv.classList.add('event');
-                        eventDiv.innerText = ev.name + " " + ev.age + "г." + " " + ev.time + "ч.";
+                        eventDiv.innerText = ev.time + "ч." + " " + ev.name + " " + ev.age + "г.";
                         daySquare.appendChild(eventDiv);
                     });
                 };
