@@ -39,7 +39,14 @@ function openModal(event, date, reservationsArr) {
         for (let current of [...time.children]) {
             index++;
             if (reservationsArr.includes(current.textContent)) {
-                for (let i = index-1; i < index + 4; i++) {
+                let endIndex = index + 4;
+                if (endIndex > [...time.children].length - 1) {
+                    endIndex = [...time.children].length - 1;
+                };
+                for (let i = index - 1; i < endIndex; i++) {
+                    if (i == [...time.children].length - 1) {
+                        return;
+                    };
                     [...time.children][i].style.display = 'none';
                 };
             };
@@ -51,7 +58,12 @@ function openModal(event, date, reservationsArr) {
         newEventModal.style.display = 'none';
         deleteEventModal.style.display = 'block';
 
-        let [name, years, reservationTime] = event.target.textContent.split(' ');
+       
+
+        //  10:00ч. egwawg 5г.
+        // console.log(event.target.textContent);
+
+        let [reservationTime, name, years] = event.target.textContent.split(' ');
         years = years.slice(0, -2);
         reservationTime = reservationTime.slice(0, -2);
 
