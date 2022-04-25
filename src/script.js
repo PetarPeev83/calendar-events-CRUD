@@ -48,11 +48,11 @@ function openModal(event, date, reservationsArr) {
                 if (startIndex < 0) {
                     startIndex = 0;
                 };
-                if (endIndex > [...time.children].length - 1) {
-                    endIndex = [...time.children].length - 1;
+                if (endIndex > [...time.children].length) {
+                    endIndex = [...time.children].length;
                 };
 
-                for (let i = startIndex; i <= endIndex; i++) {
+                for (let i = startIndex; i < endIndex; i++) {
                     // [...time.children][i].style.display = 'none';
                     [...time.children][i].disabled = true;
                 };
@@ -136,11 +136,11 @@ function onEdit(currentEvent, reservationsArr) {
             if (startEditIndex < 0) {
                 startEditIndex = 0;
             };
-            if (endEditIndex > [...time.children].length - 1) {
-                endEditIndex = [...time.children].length - 1;
+            if (endEditIndex > [...time.children].length) {
+                endEditIndex = [...time.children].length;
             };
 
-            for (let j = startEditIndex; j <= endEditIndex; j++) {
+            for (let j = startEditIndex; j < endEditIndex; j++) {
                 // [...time.children][j].style.display = 'block';
                 [...time.children][j].disabled = false;
             };
@@ -163,11 +163,11 @@ function onEdit(currentEvent, reservationsArr) {
                 if (startIndex < 0) {
                     startIndex = 0;
                 };
-                if (endIndex > [...time.children].length - 1) {
-                    endIndex = [...time.children].length - 1;
+                if (endIndex > [...time.children].length) {
+                    endIndex = [...time.children].length;
                 };
 
-                for (let i = startIndex; i <= endIndex; i++) {
+                for (let i = startIndex; i < endIndex; i++) {
                     // [...time.children][i].style.display = 'none';
                     [...time.children][i].disabled = true;
                 };
