@@ -28,7 +28,7 @@ const kidsMenu = document.getElementById('kidsMenu');
 const kidsNumber = document.getElementById('kidsNumber');
 let kidsCatering = document.getElementById('cetaring');
 
-const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',];
+const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 function openModal(event, date, reservationsArr) {
     clicked = date;
