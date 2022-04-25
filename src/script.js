@@ -39,7 +39,9 @@ function openModal(event, date, reservationsArr) {
         for (let current of [...time.children]) {
 
             if (reservationsArr.includes(current.textContent)) {
-                current.style.display = "none";
+                // current.style.display = "none";
+                current.disabled = true;
+
                 let endIndex = index + 5;
                 let startIndex = index - 4;
 
@@ -51,7 +53,8 @@ function openModal(event, date, reservationsArr) {
                 };
 
                 for (let i = startIndex; i < endIndex; i++) {
-                    [...time.children][i].style.display = 'none';
+                    // [...time.children][i].style.display = 'none';
+                    [...time.children][i].disabled = true;
                 };
             };
             index++;
