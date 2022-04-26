@@ -63,6 +63,8 @@ function openModal(event, date, reservationsArr) {
 
     if (event.target.className == 'event') {
 
+        topFunction();
+
         newEventModal.style.display = 'none';
         deleteEventModal.style.display = 'block';
 
@@ -108,6 +110,8 @@ function openModal(event, date, reservationsArr) {
 
     } else {
 
+        topFunction();
+
         if (event.target.children.length == 4) {
             return notify('Достигнат е максималния брой резервации за деня !!!');
         };
@@ -122,6 +126,8 @@ function openModal(event, date, reservationsArr) {
 };
 
 function onEdit(currentEvent, reservationsArr) {
+
+    topFunction();
 
     let editIndex = 0;
     for (let current of [...time.children]) {
@@ -409,7 +415,7 @@ function closeModal() {
 
     calendar.style.display = '';
     location.reload();
-}
+};
 
 async function saveEvent() {
     if (names.value && time.value && age.value && phone.value) {
@@ -456,7 +462,7 @@ async function saveEvent() {
 
         return alert('Не са попълнени всички задължителни полета!');
     };
-}
+};
 
 function initButtons() {
     document.getElementById('nextButton').addEventListener('click', () => {
@@ -472,6 +478,14 @@ function initButtons() {
     document.getElementById('saveButton').addEventListener('click', saveEvent);
     document.getElementById('cancelButton').addEventListener('click', closeModal);
     document.getElementById('closeButton').addEventListener('click', closeModal);
-}
+    document.getElementById('cancelButton2').addEventListener('click', closeModal);
+    document.getElementById('cancelButton3').addEventListener('click', closeModal);
+};
+
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+};
+
 initButtons();
 load();
