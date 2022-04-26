@@ -39,7 +39,7 @@ function openModal(event, date, reservationsArr) {
         for (let current of [...time.children]) {
 
             if (reservationsArr.includes(current.textContent)) {
-                // current.style.display = "none";
+                current.style.display = "none";
                 current.disabled = true;
 
                 let endIndex = index + 5;
@@ -53,7 +53,7 @@ function openModal(event, date, reservationsArr) {
                 };
 
                 for (let i = startIndex; i < endIndex; i++) {
-                    // [...time.children][i].style.display = 'none';
+                    [...time.children][i].style.display = 'none';
                     [...time.children][i].disabled = true;
                 };
             };
@@ -127,7 +127,7 @@ function onEdit(currentEvent, reservationsArr) {
     for (let current of [...time.children]) {
 
         if (currentEvent.time == current.textContent) {
-            // current.style.display = "block";
+            current.style.display = "block";
             current.disabled = false;
 
             let endEditIndex = editIndex + 5;
@@ -141,7 +141,7 @@ function onEdit(currentEvent, reservationsArr) {
             };
 
             for (let j = startEditIndex; j < endEditIndex; j++) {
-                // [...time.children][j].style.display = 'block';
+                [...time.children][j].style.display = 'block';
                 [...time.children][j].disabled = false;
             };
         };
@@ -154,7 +154,7 @@ function onEdit(currentEvent, reservationsArr) {
         for (let current of [...time.children]) {
 
             if (reservationsArr.includes(current.textContent)) {
-                // current.style.display = "none";
+                current.style.display = "none";
                 current.disabled = true;
 
                 let endIndex = index + 5;
@@ -168,7 +168,7 @@ function onEdit(currentEvent, reservationsArr) {
                 };
 
                 for (let i = startIndex; i < endIndex; i++) {
-                    // [...time.children][i].style.display = 'none';
+                    [...time.children][i].style.display = 'none';
                     [...time.children][i].disabled = true;
                 };
             };
