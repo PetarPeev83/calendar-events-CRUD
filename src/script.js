@@ -324,7 +324,7 @@ async function deleteReservation(currentEvent) {
     };
 };
 
-function load() {
+async function load() {
     const dt = new Date();
 
     if (nav !== 0) {
@@ -365,6 +365,9 @@ function load() {
                 daySquare.id = 'currentDay';
             }
             if (events.results.length > 0) {
+
+                // let eventForDay = await get(`/classes/Playground?where={"date": "${dayString}"}&order=time`); //query заявка по дата и сортиране по време;
+                // eventForDay = eventForDay.results;
 
                 let eventForDay = events.results.filter(e => (e.date == dayString));
                 eventForDay = eventForDay.sort((a, b) => a.time.localeCompare(b.time));
