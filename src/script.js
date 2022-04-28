@@ -27,6 +27,7 @@ const order = document.getElementById('order');
 const kidsMenu = document.getElementById('kidsMenu');
 const kidsNumber = document.getElementById('kidsNumber');
 let kidsCatering = document.getElementById('cetaring');
+const email = document.getElementById('email');
 
 const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -92,6 +93,7 @@ function openModal(event, date, reservationsArr) {
         document.getElementById('детскоМеню').textContent = currentEvent.kidsMenu;
         document.getElementById('бройДеца').textContent = currentEvent.kidsNumber;
         document.getElementById('друго').textContent = currentEvent.other;
+        document.getElementById('емайл').textContent = currentEvent.email;
 
         let kidsCateringDiv = document.getElementById('кетарингДеца');
         currentEvent.kidsCatering.map(element => {
@@ -203,6 +205,7 @@ function onEdit(currentEvent, reservationsArr) {
     HBDName.value = currentEvent.cakeLabel;
     kidsMenu.value = currentEvent.kidsMenu;
     kidsNumber.value = currentEvent.kidsNumber;
+    email.value = currentEvent.email;
 
     if (currentEvent.kidsCatering.length > 0) {
         currentEvent.kidsCatering.forEach((e) => {
@@ -272,6 +275,7 @@ async function editReservation(currentEvent) {
         "kidsMenu": kidsMenu.value.trim(),
         "kidsCatering": cateringToPush,
         "other": other.value.trim(),
+        "email": email.value.trim(),
     });
 
     phone.value = '';
@@ -291,6 +295,7 @@ async function editReservation(currentEvent) {
     HBDName.value = '';
     kidsMenu.value = '';
     kidsNumber.value = '';
+    email.value = '';
 
     calendar.style.display = '';
     location.reload();
@@ -413,6 +418,7 @@ function closeModal() {
     HBDName.value = '';
     kidsMenu.value = '';
     kidsNumber.value = '';
+    email.value = '';
 
     clicked = null;
 
@@ -431,6 +437,10 @@ async function saveEvent() {
 
         let cateringToPush = [];
         Array.from(kidsCatering.children).map(e => cateringToPush.push([e.children[0].value, e.children[1].value, e.children[2].value]))
+
+        if (email.value != "") {
+            sendEmail();
+        };
 
         await post("/classes/Playground", {
             "date": clicked.trim(),
@@ -454,6 +464,7 @@ async function saveEvent() {
             "kidsMenu": kidsMenu.value.trim(),
             "kidsCatering": cateringToPush,
             "other": other.value.trim(),
+            "email": email.value.trim(),
         });
 
         closeModal();
@@ -488,6 +499,22 @@ function initButtons() {
 function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+};
+
+
+async function sendEmail() {
+    const bodyToSend = `Направена е резервация за ${names.value.trim()} (${age.value.trim()}год.) за дата - ${clicked} ,
+    парти - ${parti.value.trim()} , деца - ${kidsNumber.value}, капаро - ${kaparo.value.trim()} лева`;
+
+    await Email.send({
+        Host: "smtp.gmail.com",
+        Username: "petarpenevpeev@gmail.com",
+        Password: "Petar4569",
+        To: "petar_peev83@yahoo.co.uk",
+        From: "petarpenevpeev@gmail.com",
+        Subject: "Детски Център",
+        Body: bodyToSend,
+    });
 };
 
 initButtons();

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Календар Детски Център</title>
-
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="./src/script.js" type="module"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -74,6 +75,8 @@
         <br><br>
         <label>Капаро: <input type="number" id="kaparo" placeholder="50лв." /> </label>&nbsp;&nbsp;&nbsp;
         <label>Капаро №: <input type="number" id="kaparoNumber" placeholder="0-100" /> </label>
+        <br>
+        <label>Емайл: <form method="post"><input id="email" type="email" placeholder="email@abv.bg"></form></label>
         <hr class="rounded">
         <br>
         <label for="parties">Избери Парти:</label>
@@ -244,6 +247,7 @@
 
         <hr class="rounded"> Телефон: <b><text id="телефон"></text></b>&nbsp;&nbsp;&nbsp; Капаро: <b><text
                 id="капаро"></text>лв.</b>&nbsp;&nbsp;&nbsp; Капаро №:<b><text id="капароНомер"></text></b>
+        <br>Емайл: <text id="емайл"></text>
         <hr class="rounded"> Парти: <b><text id="парти"></text></b>&nbsp;&nbsp;&nbsp; Аниматор: <b><text
                 id="аниматор"></text></b>
         <hr class="rounded"> Сладкарница: <b><text id="торта"></text></b>
@@ -258,10 +262,6 @@
         <br><br> Детско Меню: <b><text id="детскоМеню"></text></b>
         <br><br> Кетаринг за Децата: <b>
             <div id="кетарингДеца"></div>
-
-
-
-
             <hr class="rounded">
             <br> Друго: <b><text id="друго"></text></b>
             <br>
@@ -276,7 +276,7 @@
 
     <div id="modalBackDrop"></div>
 
-    <script src="./src/script.js" type="module"></script>
+
 </body>
 
 </html>
