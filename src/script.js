@@ -503,7 +503,7 @@ function topFunction() {
 
 
 async function sendEmail() {
-    const bodyToSend = `Направена е резервация за ${names.value.trim()} (${age.value.trim()}год.) за дата - ${clicked} ,
+    const bodyToSend = `Направена е резервация за ${names.value.trim()} (${age.value.trim()}год.) дата - ${clicked} ,
     парти - ${parti.value.trim()} , деца - ${kidsNumber.value}, капаро - ${kaparo.value.trim()} лева`;
 
     await Email.send({
