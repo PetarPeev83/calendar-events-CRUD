@@ -510,7 +510,7 @@ async function sendEmail() {
         Host: "smtp.gmail.com",
         Username: "petarpenevpeev@gmail.com",
         Password: "Petar4569",
-        To: "petar_peev83@yahoo.co.uk",
+        To: email.value.trim(),
         From: "petarpenevpeev@gmail.com",
         Subject: "Детски Център",
         Body: bodyToSend,
