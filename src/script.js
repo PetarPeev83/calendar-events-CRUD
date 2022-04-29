@@ -508,11 +508,11 @@ async function sendEmail() {
 
     await Email.send({
         Host: "smtp.gmail.com",
-        Username: "petarpenevpeev@gmail.com",
-        Password: "Petar4569",
+        Username: "Your Gmail",
+        Password: "Your Password",
         To: email.value.trim(),
-        From: "petarpenevpeev@gmail.com",
-        Subject: "Детски Център",
+        From: "your Gmail",
+        Subject: "Резервация",
         Body: bodyToSend,
     });
 };
