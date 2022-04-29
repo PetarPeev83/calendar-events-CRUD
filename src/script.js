@@ -509,7 +509,7 @@ async function sendEmail() {
     await Email.send({
         Host: "smtp.gmail.com",
         Username: "Your Gmail",
-        Password: "Your Password",
+        Password: "Your Gmail Password",
         To: email.value.trim(),
         From: "your Gmail",
         Subject: "Резервация",
