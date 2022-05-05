@@ -69,9 +69,12 @@ function openModal(event, date, reservationsArr) {
         newEventModal.style.display = 'none';
         deleteEventModal.style.display = 'block';
 
-        let [reservationTime, name, years] = event.target.textContent.split(' ');
-        years = years.slice(0, -2);
-        reservationTime = reservationTime.slice(0, -2);
+        // let [reservationTime, name, years] = event.target.textContent.split(' ');
+        // reservationTime = reservationTime.slice(0, -2);
+        let splitted = event.target.textContent.trim().split(' ');
+        let reservationTime = splitted.shift().slice(0, -2);
+        let years = splitted.pop().slice(0, -2);
+        let name = splitted.join(' ');
 
         const currentEvent = events.results.find(e => e.name == name && e.age == years && e.time == reservationTime);
 
