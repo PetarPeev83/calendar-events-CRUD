@@ -371,11 +371,11 @@ async function load() {
             }
             if (events.results.length > 0) {
 
-                // let eventForDay = await get(`/classes/Playground?where={"date": "${dayString}"}&order=time`); //query заявка по дата и сортиране по време;
-                // eventForDay = eventForDay.results;
+                 let eventForDay = await get(`/classes/Playground?where={"date": "${dayString}"}&order=time`); //query заявка по дата и сортиране по време;
+                 eventForDay = eventForDay.results;
 
-                let eventForDay = events.results.filter(e => (e.date == dayString));
-                eventForDay = eventForDay.sort((a, b) => a.time.localeCompare(b.time));
+             //   let eventForDay = events.results.filter(e => (e.date == dayString));
+             //   eventForDay = eventForDay.sort((a, b) => a.time.localeCompare(b.time));
 
                 if (eventForDay.length > 0) {
                     eventForDay.map(ev => {
