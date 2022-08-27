@@ -3,7 +3,7 @@ import { notify } from "./notify.js";
 
 let nav = 0;
 let clicked = null;
-// const events = await get("/classes/Playground");
+// const events = await get("/classes/Playground");   //todo...
 
 const events = {};           //todo.....
 events.results = [];         //todo.....
@@ -382,19 +382,17 @@ async function load() {
                 daySquare.id = 'currentDay';
             }
 
+            //todo....from here
             let eventForDay = await get(`/classes/Playground?where={"date": "${dayString}"}&order=time`); //query заявка по дата и сортиране по време;
             eventForDay = eventForDay.results;
 
-            // console.log("1");
-            // console.log(eventForDay);
-            // console.log("2");
-            // console.log(events);
+        
             if (eventForDay.length > 0){                 //todo.......
                 events.results.push(eventForDay[0]);     //todo.....
             };
-            
+             //todo....to here
     
-            // if (events.results.length > 0) {
+            // if (events.results.length > 0) {    //todo....
 
                 //  let eventForDay = await get(`/classes/Playground?where={"date": "${dayString}"}&order=time`); //query заявка по дата и сортиране по време;
                 //  eventForDay = eventForDay.results;
@@ -411,7 +409,7 @@ async function load() {
                         reservationsOnTheDay.push(ev.time);
                     });
                 };
-            // };
+            // };  //todo....
             daySquare.addEventListener('click', (event) => openModal(event, dayString, reservationsOnTheDay));
         } else {
             daySquare.classList.add('padding');
