@@ -3,7 +3,11 @@ import { notify } from "./notify.js";
 
 let nav = 0;
 let clicked = null;
-const events = await get("/classes/Playground");
+// const events = await get("/classes/Playground");
+
+const events = {};           //todo.....
+events.results = [];         //todo.....
+
 
 const calendar = document.getElementById('calendar');
 const newEventModal = document.getElementById('newEventModal');
@@ -74,6 +78,7 @@ function openModal(event, date, reservationsArr) {
         let years = splitted.pop().slice(0, -2);
         let name = splitted.join(' ');
 
+        console.log(events);
         const currentEvent = events.results.find(e => e.name == name && e.age == years && e.time == reservationTime);
 
         document.getElementById('име').textContent = currentEvent.name;
@@ -331,6 +336,12 @@ async function deleteReservation(currentEvent) {
 };
 
 async function load() {
+    const backButton = document.getElementById('backButton');  //todo.......
+    const nextButton = document.getElementById('nextButton');  //todo.......
+    backButton.style.display = "none";  //todo.......
+    nextButton.style.display = "none";   //todo.......
+    events.results = [];   //todo.......
+   
     const dt = new Date();
 
     if (nav !== 0) {
@@ -370,10 +381,23 @@ async function load() {
             if (i - paddingDays === day && nav === 0) {
                 daySquare.id = 'currentDay';
             }
-            if (events.results.length > 0) {
 
-                 let eventForDay = await get(`/classes/Playground?where={"date": "${dayString}"}&order=time`); //query заявка по дата и сортиране по време;
-                 eventForDay = eventForDay.results;
+            let eventForDay = await get(`/classes/Playground?where={"date": "${dayString}"}&order=time`); //query заявка по дата и сортиране по време;
+            eventForDay = eventForDay.results;
+
+            // console.log("1");
+            // console.log(eventForDay);
+            // console.log("2");
+            // console.log(events);
+            if (eventForDay.length > 0){                 //todo.......
+                events.results.push(eventForDay[0]);     //todo.....
+            };
+            
+    
+            // if (events.results.length > 0) {
+
+                //  let eventForDay = await get(`/classes/Playground?where={"date": "${dayString}"}&order=time`); //query заявка по дата и сортиране по време;
+                //  eventForDay = eventForDay.results;
 
              //   let eventForDay = events.results.filter(e => (e.date == dayString));
              //   eventForDay = eventForDay.sort((a, b) => a.time.localeCompare(b.time));
@@ -387,13 +411,15 @@ async function load() {
                         reservationsOnTheDay.push(ev.time);
                     });
                 };
-            };
+            // };
             daySquare.addEventListener('click', (event) => openModal(event, dayString, reservationsOnTheDay));
         } else {
             daySquare.classList.add('padding');
         };
         calendar.appendChild(daySquare);
     };
+    backButton.style.display = "";
+    nextButton.style.display = "";
 };
 
 function closeModal() {
