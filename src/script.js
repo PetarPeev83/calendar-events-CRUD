@@ -416,8 +416,8 @@ async function load() {
         };
         calendar.appendChild(daySquare);
     };
-    backButton.style.display = "";
-    nextButton.style.display = "";
+    backButton.style.display = ""; //todo....
+    nextButton.style.display = ""; //todo....
 };
 
 function closeModal() {
